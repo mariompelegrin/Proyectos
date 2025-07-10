@@ -34,14 +34,21 @@ def registrar_usuario(request):
 
 @login_required
 @user_passes_test(es_admin)
+@login_required
 def dashboard_admin(request):
-    query = request.GET.get('q')
-    if query:
-        usuarios = Usuario.objects.filter(
-            Q(username__icontains=query) |
-            Q(email__icontains=query)
-        )
-    else:
-        usuarios = Usuario.objects.all()
+    usuarios = Usuario.objects.all()
+    form = RegistroUsuarioForm()
 
-    return render(request, 'usuarios/dashboard_admin.html', {'usuarios': usuarios, 'query': query})
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Usuario registrado correctamente.')
+            return redirect('dashboard_admin')
+        else:
+            messages.error(request, 'Corrija los errores del formulario.')
+
+    return render(request, 'usuarios/dashboard_admin.html', {
+        'form': form,
+        'usuarios': usuarios
+    })
