@@ -1,0 +1,26 @@
+/* Estructura de dos columnas en cada fila del formulario */
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Etiquetas a la izquierda */
+.form-row label {
+  flex: 1;
+  text-align: left;  /* ⬅ Etiquetas alineadas a la izquierda */
+  font-weight: bold;
+  padding-right: 10px;
+}
+
+/* Inputs a la derecha */
+.form-row input,
+.form-row select {
+  flex: 2;
+  text-align: right;  /* ⬅ Inputs alineados a la derecha */
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
