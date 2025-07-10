@@ -14,7 +14,14 @@ class RegistroUsuarioForm(UserCreationForm):
         fields = ['username', 'nombre', 'apellidos', 'ci', 'rol', 'password1', 'password2']
         labels = {
             'username': 'Nombre de usuario',
+            'nombre': 'Nombre',
+            'apellidos': 'Apellidos',
+            'ci': 'Carnet de Identidad',
+            'rol': 'Rol',
+            'password1': 'Contraseña',
+            'password2': 'Confirmar contraseña',
         }
+        help_texts = {field: '' for field in fields}
 
     def clean_nombre(self):
         nombre = self.cleaned_data.get('nombre')

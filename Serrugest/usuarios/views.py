@@ -1,4 +1,3 @@
-# usuarios/views.py
 from django.shortcuts import render, redirect
 from .forms import RegistroUsuarioForm
 from django.contrib.auth import authenticate, login
