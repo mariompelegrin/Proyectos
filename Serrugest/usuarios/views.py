@@ -34,10 +34,20 @@ def registrar_usuario(request):
 
 @login_required
 @user_passes_test(es_admin)
-@login_required
 def dashboard_admin(request):
-    usuarios = Usuario.objects.all()
     form = RegistroUsuarioForm()
+
+    query = request.GET.get('q')  # 🔍 Captura el término de búsqueda
+
+    if query:
+        usuarios = Usuario.objects.filter(
+            Q(username__icontains=query) |
+            Q(nombre__icontains=query) |
+            Q(apellidos__icontains=query) |
+            Q(rol__icontains=query)
+        )
+    else:
+        usuarios = Usuario.objects.all()
 
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
